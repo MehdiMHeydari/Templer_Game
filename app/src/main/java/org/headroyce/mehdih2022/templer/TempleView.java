@@ -116,7 +116,7 @@ public class TempleView extends View {
 
                 Obstacle rightnow = new Obstacle(getContext());
 
-                rightnow.x = random.nextInt(getWidth() - rightnow.getobstacleWidth());
+                rightnow.x = random.nextInt(getWidth() - rightnow.getItemWidth());
                 rightnow.y = 0;
                 rightnow.velX = 0;
                 rightnow.velY = 10;
@@ -131,22 +131,21 @@ public class TempleView extends View {
                 Enemy it = new Enemy(getContext());
 
                 it.x = random.nextInt(getWidth());
-                it.y = -it.getobstacleHeight();
+                it.y = -it.getItemHeight();
 
 
                 //sets random x velocity
                 it.velX = random.nextInt(5);
 
                 //using pythagreon theroem to determin the xyvelocity so that the velocity of the ball is 5
-                it.velY = (int) Math.sqrt((5 * 5) - (it.velX * it.velX ));
-
-
+                it.velY = (int) Math.sqrt((5 * 5) - (it.velX * it.velX));
 
 
                 obstacles.add(it);
             }
 
             player.move();
+
 
             // moves each obsticle, checks collisons and removes them when they go off the screen
             for (int i = 0; i < obstacles.size(); i++) {
@@ -163,17 +162,28 @@ public class TempleView extends View {
                 }
 
 
-                if (rightnow.x + rightnow.getobstacleWidth() >= getWidth()) {
-                    rightnow.x = getWidth() - rightnow.getobstacleWidth();
+                if (rightnow.x + rightnow.getItemWidth() >= getWidth()) {
+                    rightnow.x = getWidth() - rightnow.getItemWidth();
                     rightnow.velX *= -1;
+                }
+
+                for (int q = i+1; q < obstacles.size(); q++) {
+                    if (rightnow.reactTo(obstacles.get(q))) {
+                        obstacles.get(q).velX *= -1;
+                        obstacles.get(q).velY *= -1;
+                        rightnow.velY *= -1;
+                        rightnow.velX *= -1;
+                        rightnow.y += rightnow.getItemHeight();
+                        rightnow.x += rightnow.getItemWidth();
+                    }
                 }
 
             }
 
             //player collisions
 
-            if (player.x + player.getPlayerWidth() > getWidth()) {
-                player.x = getWidth() - player.getPlayerWidth();
+            if (player.x + player.getItemWidth() > getWidth()) {
+                player.x = getWidth() - player.getItemWidth();
                 player.velX *= -1;
             }
 
@@ -182,8 +192,8 @@ public class TempleView extends View {
                 player.velX *= -1;
             }
 
-            if (player.y + player.getPlayerHeight() > getHeight() || player.y + player.getPlayerHeight() < 0) {
-                player.y = getHeight() - player.getPlayerHeight();
+            if (player.y + player.getItemHeight() > getHeight() || player.y + player.getItemHeight() < 0) {
+                player.y = getHeight() - player.getItemHeight();
                 player.velY *= -1;
             }
 
@@ -197,8 +207,25 @@ public class TempleView extends View {
 
             }
 
+            for (Obstacle ob : obstacles) {
+                if (player.reactTo(ob) == true) {
+                  //  ob.velX *= -1;
+                  //  ob.velY *= -1;
+                  //  player.velY *= -1;
+                  //  player.velX *= -1;
+                }
+            }
+            //for (Obstacle ob: obstacles)
+
         }
+
+
+        //public void forceOnPlayer (float x, float y){
+       // player.velx(-x*10)
+       //
+
     }
+
 
 }
 

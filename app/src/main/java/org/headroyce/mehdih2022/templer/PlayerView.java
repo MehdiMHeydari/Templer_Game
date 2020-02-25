@@ -7,20 +7,16 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class PlayerView extends View {
-    public int x,y;
-    public int velX, velY;
-
-    private int width, height; // has to be private because width cannot be negative
-    private int color; // has to be private because cant be null
-
+public class PlayerView extends ItemView {
 
     public PlayerView (Context context, AttributeSet attrs){
         super (context, attrs);
 
-        width = 50;
-        height = 50;
+        setItemWidth(50);
+        setItemHeight(50);
         color = Color.BLACK;
+        setMaxhitpoints(5);
+
     }
 
     public void onDraw (Canvas c){
@@ -28,32 +24,13 @@ public class PlayerView extends View {
 
         paint.setColor(color);
 
-        int radius = (width+1)/2;
+        int radius = (getItemWidth()+1)/2;
 
         c.drawCircle(x + radius,y + radius, radius, paint);
 
 
     }
 
-    public int getPlayerWidth() {
-        return width;
-    }
-
-    public void setPlayerWidth(int width) {
-        if ( width >= 0) {
-            this.width = width;
-        }
-    }
-
-    public int getPlayerHeight() {
-        return height;
-    }
-
-    public void setPlayerHeight(int height) {
-        if (height >= 0) {
-            this.height = height;
-        }
-    }
 
     public int getColor() {
         return color;
@@ -63,13 +40,18 @@ public class PlayerView extends View {
         this.color = color;
     }
 
-    public int getwidth(){ return width;}
 
     public void move(){
 
         this.x += this.velX;
         this.y += this.velY;
     }
+
+    public boolean reactTo (ItemView item){
+        super.reactTo(item);
+        return true;
+    }
+
 
 
 }

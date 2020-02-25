@@ -11,16 +11,18 @@ public class Enemy extends Obstacle {
 
     public Enemy (Context context, AttributeSet attrs){
         super(context, attrs);
-        setobstacleHeight(50);
-        setobtsacleWidth(50);
+        setItemHeight(50);
+        setItemWidth(50);
         color = Color.RED;
+        setMaxhitpoints(2);
     }
 
     public Enemy(Context context){
         super (context);
-        setobstacleHeight(50);
-        setobtsacleWidth(50);
+        setItemHeight(50);
+        setItemWidth(50);
         color = Color.RED;
+        setMaxhitpoints(2);
 
     }
 
@@ -29,7 +31,7 @@ public class Enemy extends Obstacle {
 
         paint.setColor(color);
 
-        int radius = (getobstacleWidth()+1)/2;
+        int radius = (getItemWidth()+1)/2;
 
         c.drawCircle(x + radius,y + radius, radius, paint);
 
@@ -39,6 +41,7 @@ public class Enemy extends Obstacle {
         this.x += this.velX;
         this.y += this.velY;
     }
+
 
     //signum
 }
