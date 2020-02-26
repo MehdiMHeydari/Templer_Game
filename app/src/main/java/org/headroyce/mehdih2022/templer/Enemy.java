@@ -15,6 +15,8 @@ public class Enemy extends Obstacle {
         setItemWidth(50);
         color = Color.RED;
         setMaxhitpoints(2);
+        heal(getMaxhitpoints());
+
     }
 
     public Enemy(Context context){
@@ -23,6 +25,8 @@ public class Enemy extends Obstacle {
         setItemWidth(50);
         color = Color.RED;
         setMaxhitpoints(2);
+        heal(getMaxhitpoints());
+
 
     }
 
@@ -37,11 +41,20 @@ public class Enemy extends Obstacle {
 
     }
 
+    public void hit(){
+        super.hit();
+        color = Color.MAGENTA;
+    }
     public void move(){
         this.x += this.velX;
         this.y += this.velY;
     }
 
-
+    public boolean reactTo (ItemView item){
+        if (super.reactTo(item)) {
+            hit();
+        }
+        return super.reactTo(item);
+    }
     //signum
 }

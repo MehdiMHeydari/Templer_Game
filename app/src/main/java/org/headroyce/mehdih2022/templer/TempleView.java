@@ -169,12 +169,15 @@ public class TempleView extends View {
 
                 for (int q = i+1; q < obstacles.size(); q++) {
                     if (rightnow.reactTo(obstacles.get(q))) {
+                        System.out.println("here");
                         obstacles.get(q).velX *= -1;
                         obstacles.get(q).velY *= -1;
                         rightnow.velY *= -1;
                         rightnow.velX *= -1;
-                        rightnow.y += rightnow.getItemHeight();
+                        /*rightnow.y += rightnow.getItemHeight();
                         rightnow.x += rightnow.getItemWidth();
+                        obstacles.get(q).x  -=  obstacles.get(q).getItemWidth();
+                        obstacles.get(q).y -=  obstacles.get(q).getItemHeight();*/
                     }
                 }
 
@@ -202,27 +205,37 @@ public class TempleView extends View {
                 player.velY *= -1;
             }
 
+
+
+           for (Obstacle ob : obstacles) {
+                if (player.reactTo(ob) == true) {
+                    ob.velX *= -1;
+                    ob.velY *= -1;
+                    player.velY *= -1;
+                    player.velX *= -1;
+                    /*player.y += player.getItemHeight();
+                    player.x += player.getItemWidth();
+                    ob.x  -=  ob.getItemWidth();
+                    ob.y -=  ob.getItemHeight();*/
+                    if (ob.getHitpoints() == 0){
+                        obstacles.remove(ob);
+                    }
+                }
+            }
+
+            //for (Obstacle ob: obstacles)
+
             if (gameRunning == true) {
                 gameTimer.postDelayed(this, 100);
 
             }
-
-            for (Obstacle ob : obstacles) {
-                if (player.reactTo(ob) == true) {
-                  //  ob.velX *= -1;
-                  //  ob.velY *= -1;
-                  //  player.velY *= -1;
-                  //  player.velX *= -1;
-                }
-            }
-            //for (Obstacle ob: obstacles)
-
         }
 
 
         //public void forceOnPlayer (float x, float y){
        // player.velx(-x*10)
        //
+
 
     }
 

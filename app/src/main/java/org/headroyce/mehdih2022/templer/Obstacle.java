@@ -15,16 +15,14 @@ public class Obstacle extends ItemView {
 
     public Obstacle (Context context, AttributeSet attrs){
         super (context, attrs);
-        
-        
         setItemHeight(50);
         setItemWidth(50);
         color = Color.BLUE;
         setMaxhitpoints(1);
 
-       this.setMaxhitpoints(5);
 
     }
+
 
     public Obstacle (Context context){
         super (context);
@@ -32,6 +30,7 @@ public class Obstacle extends ItemView {
         setItemWidth(50);
         color = Color.BLUE;
         setMaxhitpoints(1);
+        heal(getMaxhitpoints());
 
 
     }
@@ -45,20 +44,26 @@ public class Obstacle extends ItemView {
 
     }
 
+
+
     public void move(){
 
         this.x += this.velX;
         this.y += this.velY;
     }
 
-   
+   public void hit (){
+        setHitpoints(-1);
+   }
 
     
     
 
     public boolean reactTo (ItemView item){
-       super.reactTo(item);
-        return true;
+        if (super.reactTo(item)) {
+            hit();
+        }
+       return super.reactTo(item);
     }
 
 

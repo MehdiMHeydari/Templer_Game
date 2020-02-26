@@ -39,6 +39,13 @@ private void hit(ItemView i){
         this.maxhitpoints = maxhitpoints;
     }
 
+    public void setHitpoints(int hitpoints){this.hitpoints = hitpoints; }
+
+    public int getHitpoints(){return hitpoints;}
+
+
+
+
     public void heal (float add){
     if (this.hitpoints+ add <= this.maxhitpoints){
         this.hitpoints += add;
@@ -56,6 +63,9 @@ private void hit(ItemView i){
         }
     }
 
+    public void hit(){
+    hitpoints-=1;
+    }
 
     public int getItemHeight() {
         return height;
@@ -72,24 +82,20 @@ private void hit(ItemView i){
     // FIX WIDTH AND HEIFHT ARE CANVAS NOT ITEMS
     //left side
     if(this.x > item.x + item.getItemWidth()){
-        System.out.println("1");
         return false;
     }
     //right side
      if(this.x + this.getItemWidth() < item.x){
-         System.out.println("2");
          return false;
      }
 
      //bottom
      if(this.y + this.getItemHeight() < item.y){
-         System.out.println("3");
             return false;
       }
 
       //top
       if(this.y > item.y + item.getItemHeight()){
-          System.out.println("4");
             return false;
       }
 

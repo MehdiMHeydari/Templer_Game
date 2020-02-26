@@ -16,6 +16,9 @@ public class PlayerView extends ItemView {
         setItemHeight(50);
         color = Color.BLACK;
         setMaxhitpoints(5);
+        heal(getMaxhitpoints());
+
+
 
     }
 
@@ -48,8 +51,10 @@ public class PlayerView extends ItemView {
     }
 
     public boolean reactTo (ItemView item){
-        super.reactTo(item);
-        return true;
+        if (super.reactTo(item)) {
+            hit();
+        }
+        return super.reactTo(item);
     }
 
 
